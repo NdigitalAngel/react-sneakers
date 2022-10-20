@@ -43,7 +43,12 @@ function App() {
 
         <div className="d-flex">
           {arr.map((obj) => (
-            <Card title={obj.name} price={obj.price} imageUrl={obj.imageUrl} />
+            <Card
+             title={obj.name}
+             price={obj.price}
+             imageUrl={obj.imageUrl}
+             onFavorite={() => console.log('Добавили в залкдаки')}
+              />
           ))}
         </div>
       </div>
