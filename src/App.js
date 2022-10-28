@@ -6,6 +6,7 @@ import Drawer from "./components/Drawer";
 function App() {
   const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState('');
   const [cartOpened, setCartOpened] = React.useState(false);
 
   React.useEffect(() => {
@@ -19,10 +20,12 @@ function App() {
   }, []);
 
   const onAddToCart = (obj) => {
-    setCartItems(prev => [...prev, obj]);
+    setCartItems((prev) => [...prev, obj]);
   };
 
-  console.log(cartItems);
+  const onChangeSearchInput = (event) => {
+    setSearchValue(event.target.value);
+  };
 
   return (
     <div className="wrapper clear">
@@ -33,16 +36,29 @@ function App() {
 
       <div className="content p-40">
         <div className="d-flex align-center mb-40 justify-between">
-          <h1>Все кроссовки</h1>
+          <h1>
+            {searchValue
+              ? `Поиск по запросу: "${searchValue}"`
+              : "Все кроссовки"}
+          </h1>
           <div className="search-block d-flex">
             <img src="/img/search.svg" alt="search" />
-            <input placeholder="Поиск..." />
+            {searchValue && (
+              <img
+                onClick={() => setSearchValue('')}
+                className="clear cu-p"
+                src="/img/btn-remove.svg"
+                alt="remove"
+              />
+            )}
+            <input onChange={onChangeSearchInput} value={searchValue} placeholder="Поиск..." />
           </div>
         </div>
 
         <div className="d-flex flex-wrap">
           {items.map((item) => (
             <Card
+              key={item.name}
               title={item.name}
               price={item.price}
               imageUrl={item.imageUrl}
