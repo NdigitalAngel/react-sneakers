@@ -1,4 +1,4 @@
-function Drawer({ onClose, items = [] }) {
+function Drawer({ onClose, items = [], id }) {
   return (
     <div className="overlay">
       <div className="drawer">
@@ -12,7 +12,7 @@ function Drawer({ onClose, items = [] }) {
           />
         </h2>
 
-        <div className="items">
+        <div key={id} className="items">
           {items.map((obj) => (
             <div className="cartItem d-flex align-center mb-15">
               <div
@@ -24,7 +24,7 @@ function Drawer({ onClose, items = [] }) {
                 <b>{obj.price} руб.</b>
               </div>
               <img
-                className="removeBtn"
+                className="removeBtn cu-p"
                 src="/img/btn-remove.svg"
                 alt="remove"
               />
